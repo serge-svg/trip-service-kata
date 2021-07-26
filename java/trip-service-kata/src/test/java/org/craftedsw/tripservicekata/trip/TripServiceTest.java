@@ -1,6 +1,5 @@
 package org.craftedsw.tripservicekata.trip;
 
-
 import org.craftedsw.tripservicekata.exception.UserNotLoggedInException;
 import org.craftedsw.tripservicekata.user.User;
 import org.junit.Before;
@@ -9,6 +8,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.craftedsw.tripservicekata.trip.UserBuilder.aUser;
 
 public class TripServiceTest {
 
@@ -37,9 +37,11 @@ public class TripServiceTest {
 
     @Test public void
     return_no_trips_when_users_are_not_friends(){
-        User stranger = new User();
-        stranger.addFriend(ANOTHER_USER);
-        stranger.addTrip(CATALONIA);
+        User stranger = aUser()
+                .friendsWith(ANOTHER_USER)
+                .withTripsTo(CATALONIA)
+                .build();
+
         List<Trip> trips = tripService.getTripsByUser(stranger);
 
         assertThat(trips).isEmpty();
@@ -47,14 +49,13 @@ public class TripServiceTest {
 
     @Test public void
     return_trips_when_users_are_friends(){
-        User friend = new User();
-        friend.addFriend(ANOTHER_USER);
-        friend.addFriend(REGISTERED_USER);
-        friend.addTrip(CATALONIA);
-        friend.addTrip(CHINA);
+        User friend = aUser()
+                            .friendsWith(ANOTHER_USER, REGISTERED_USER)
+                            .withTripsTo(CHINA, CATALONIA)
+                            .build();
+
         List<Trip> trips = tripService.getTripsByUser(friend);
 
-        //assertThat(trips).isNotEmpty();
         assertThat(trips).containsExactlyInAnyOrder(CHINA, CATALONIA);
     }
 
