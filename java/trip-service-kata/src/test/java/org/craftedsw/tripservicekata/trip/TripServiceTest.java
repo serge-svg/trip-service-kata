@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.craftedsw.tripservicekata.trip.UserBuilder.aUser;
+import static org.craftedsw.tripservicekata.user.UserBuilder.aUser;
 
 public class TripServiceTest {
 

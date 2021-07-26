@@ -1,8 +1,8 @@
-package org.craftedsw.tripservicekata.trip;
+package org.craftedsw.tripservicekata.user;
 
-import org.craftedsw.tripservicekata.user.User;
+import org.craftedsw.tripservicekata.trip.Trip;
 
-public class UserBuilder {
+public class UserBuilder extends User {
 
     private User[] friends = new User[]{};
     private Trip[] trips = new Trip[]{};
